@@ -1,0 +1,1 @@
+cmd_/home/roger/Security/rmit/code/SGX-STEP/sgx-step/kernel/sgx-step.mod := { echo  /home/roger/Security/rmit/code/SGX-STEP/sgx-step/kernel/sgxstep.o;  echo; } > /home/roger/Security/rmit/code/SGX-STEP/sgx-step/kernel/sgx-step.mod

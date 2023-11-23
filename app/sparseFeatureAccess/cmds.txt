@@ -1,0 +1,78 @@
+1.
+cd /home/roger/sgxCode/sgx-step
+cd kernel
+make clean load
+
+
+cd ~/Security/rmit/code/SGX-STEP/sgx-step
+
+/Security/rmit/code/SGX-STEP/sgx-step$ sudo ./check_sys.sh
+.. Checking recommended SGX-Step parameters          [OK]
+.. Checking unknown kernel parameters                [OK]
+.. Checking CPU features                             [OK]
+.. Checking kernel page-table isolation              [OK]
+
+cd ~/Security/rmit/code/SGX-STEP/sgx-step/app/multiplySquare
+make run
+
+./configureCPUFrequency.sh 1.6GHz
+
+cd ../app/plundervoltV2/
+make run
+
+
+2. msr:
+sudo wrmsr 0x150 0x8000011000000000
+sudo rdmsr 0x150
+sudo rdmsr 0x198
+(
+sudo rdmsr 0x198 --decimal
+)
+
+
+The value can be deconstructed to 5 parts:
+
+| constant | plane index | constant | write/read | offset | |----------|-------------|----------|------------|------------| |
+
+80000
+
+|
+
+0
+
+|
+
+1
+
+|
+
+1
+
+|
+
+F9A00000
+
+|
+
+I do not know what the constants mean, you only need to change the plane index and offset.
+
+More examples:
+
+Undervolt GPU by 125mV and everything else by 150mV:
+
+wrmsr 0x150 0x80000011ecc00000          
+wrmsr 0x150 0x80000111f0000000          
+wrmsr 0x150 0x80000211ecc00000          
+wrmsr 0x150 0x80000311ecc00000          
+wrmsr 0x150 0x80000411ecc00000 
+
+3.
+lscpu
+
+
+
+check sgx enabled or not:
+https://github.com/intel/sgx-software-enable
+cd /home/roger/sgxCode/sgx-software-enable-master
+make
+./sgx_enable -s

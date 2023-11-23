@@ -1,0 +1,12 @@
+enclave {
+	trusted {
+        public int enclave_dummy_call(void);
+	    public void* get_a_addr(void);
+		public uint64_t multiplication(void);
+		public double *safeAccessEmbeddingTable(double t);
+    };
+	
+	untrusted {
+		double *loadFromExternal(double t[10]);
+	};
+};
